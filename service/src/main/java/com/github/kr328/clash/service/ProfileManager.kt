@@ -15,6 +15,8 @@ import com.github.kr328.clash.service.data.Selection
 import com.github.kr328.clash.service.data.SelectionDao
 import com.github.kr328.clash.service.model.Profile
 import com.github.kr328.clash.service.model.ProxyGroupPreviewRow
+import com.github.kr328.clash.service.model.RuleState
+import com.github.kr328.clash.service.model.YamlPreview
 import com.github.kr328.clash.service.remote.IFetchObserver
 import com.github.kr328.clash.service.remote.IProfileManager
 import com.github.kr328.clash.service.store.ServiceStore
@@ -28,12 +30,17 @@ import com.github.kr328.clash.service.util.ProxyDialerYamlEdit
 import com.github.kr328.clash.service.util.ProxyGroupsYamlEdit
 import com.github.kr328.clash.service.util.ProxyProvidersYamlEdit
 import com.github.kr328.clash.service.util.RuleProvidersYamlEdit
+import com.github.kr328.clash.service.util.YamlPreviewSupport
 import com.github.kr328.clash.service.util.pendingDir
 import com.github.kr328.clash.service.util.sendProfileChanged
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.io.File
@@ -44,6 +51,24 @@ class ProfileManager(private val context: Context) : IProfileManager,
     CoroutineScope by CoroutineScope(Dispatchers.IO) {
     private val store = ServiceStore(context)
     private val ruleApplyService = RuleApplyService(context)
+    private val previewJson = Json { ignoreUnknownKeys = true }
+    private val previewCache = LinkedHashMap<String, CachedPreview>()
+    // Serializes nextProfileOrder() + Pending insert pairs. Without it, two concurrent
+    // imports (e.g. auto-update + manual click) can both read the same MAX(profileOrder)
+    // and produce duplicate ordering values that compare non-deterministically.
+    private val profileOrderLock = Mutex()
+
+    private data class CachedFile(
+        val relativePath: String,
+        val sourceHash: String,
+        val proposedYaml: String,
+    )
+
+    private data class CachedPreview(
+        val uuid: UUID,
+        val files: List<CachedFile>,
+        val ruleStateJson: String? = null,
+    )
 
     init {
         launch {
@@ -55,19 +80,23 @@ class ProfileManager(private val context: Context) : IProfileManager,
 
     override suspend fun create(type: Profile.Type, name: String, source: String): UUID {
         val uuid = generateProfileUUID()
-        val pending = Pending(
-            uuid = uuid,
-            name = name,
-            type = type,
-            source = source,
-            interval = 0,
-            upload = 0,
-            total = 0,
-            download = 0,
-            expire = 0,
-        )
+        profileOrderLock.withLock {
+            val profileOrder = nextProfileOrder()
+            val pending = Pending(
+                uuid = uuid,
+                name = name,
+                type = type,
+                source = source,
+                interval = 0,
+                upload = 0,
+                total = 0,
+                download = 0,
+                expire = 0,
+                profileOrder = profileOrder,
+            )
 
-        PendingDao().insert(pending)
+            PendingDao().insert(pending)
+        }
 
         context.pendingDir.resolve(uuid.toString()).apply {
             deleteRecursively()
@@ -87,21 +116,25 @@ class ProfileManager(private val context: Context) : IProfileManager,
         val imported = ImportedDao().queryByUUID(uuid)
             ?: throw FileNotFoundException("profile $uuid not found")
 
-        val pending = Pending(
-            uuid = newUUID,
-            name = imported.name,
-            type = Profile.Type.File,
-            source = imported.source,
-            interval = imported.interval,
-            upload = imported.upload,
-            total = imported.total,
-            download = imported.download,
-            expire = imported.expire,
-        )
-
         cloneImportedFiles(uuid, newUUID)
 
-        PendingDao().insert(pending)
+        profileOrderLock.withLock {
+            val profileOrder = nextProfileOrder()
+            val pending = Pending(
+                uuid = newUUID,
+                name = imported.name,
+                type = Profile.Type.File,
+                source = imported.source,
+                interval = imported.interval,
+                upload = imported.upload,
+                total = imported.total,
+                download = imported.download,
+                expire = imported.expire,
+                profileOrder = profileOrder,
+            )
+
+            PendingDao().insert(pending)
+        }
 
         return newUUID
     }
@@ -135,6 +168,7 @@ class ProfileManager(private val context: Context) : IProfileManager,
                     total = 0,
                     download = 0,
                     expire = 0,
+                    profileOrder = imported.profileOrder,
                 )
             )
         } else {
@@ -149,6 +183,27 @@ class ProfileManager(private val context: Context) : IProfileManager,
             )
 
             PendingDao().update(newPending)
+        }
+    }
+
+    override suspend fun applySubscriptionUpdateInterval(uuid: UUID, intervalMillis: Long) {
+        withContext(Dispatchers.IO) {
+            val min = java.util.concurrent.TimeUnit.MINUTES.toMillis(15)
+            val interval = intervalMillis.coerceAtLeast(min)
+            val imported = ImportedDao().queryByUUID(uuid) ?: return@withContext
+            if (imported.type != Profile.Type.Url) return@withContext
+            if (imported.interval == interval) return@withContext
+
+            val updated = imported.copy(interval = interval)
+            ImportedDao().update(updated)
+
+            PendingDao().queryByUUID(uuid)?.let { pending ->
+                PendingDao().update(pending.copy(interval = interval))
+            }
+
+            ProfileReceiver.cancelNext(context, imported)
+            ProfileReceiver.scheduleNext(context, updated)
+            context.sendProfileChanged(uuid)
         }
     }
 
@@ -201,7 +256,8 @@ class ProfileManager(private val context: Context) : IProfileManager,
                     download,
                     total,
                     expire,
-                    old.createdAt
+                    old.createdAt,
+                    old.profileOrder,
                 )
 
                 ImportedDao().update(new)
@@ -265,10 +321,22 @@ class ProfileManager(private val context: Context) : IProfileManager,
 
     override suspend fun queryAll(): List<Profile> {
         val uuids = withContext(Dispatchers.IO) {
-            (ImportedDao().queryAllUUIDs() + PendingDao().queryAllUUIDs()).distinct()
+            ImportedDao().queryAllOrderedUUIDs().map { it.uuid }.distinct()
         }
 
         return uuids.mapNotNull { resolveProfile(it) }
+    }
+
+    override suspend fun reorder(uuids: List<String>) {
+        withContext(Dispatchers.IO) {
+            uuids.mapNotNull { raw ->
+                runCatching { UUID.fromString(raw) }.getOrNull()
+            }.distinct().forEachIndexed { index, uuid ->
+                val order = index.toLong()
+                ImportedDao().updateProfileOrder(uuid, order)
+                PendingDao().updateProfileOrder(uuid, order)
+            }
+        }
     }
 
     override suspend fun queryActive(): Profile? {
@@ -298,6 +366,12 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewMergeRuleProviderYaml(
+        uuid: UUID,
+        ruleProvidersYaml: String,
+        prependRuleLine: String,
+    ): String? = previewRuleDryRun(uuid, "Rules", ruleApplyService.dryRunMergeProviderShortcut(uuid, ruleProvidersYaml, prependRuleLine))
+
     override suspend fun readProxyGroupsPreview(uuid: UUID): Map<String, ProxyGroupPreviewRow> {
         return withContext(Dispatchers.IO) {
             if (ImportedDao().queryByUUID(uuid) == null) {
@@ -309,7 +383,7 @@ class ProfileManager(private val context: Context) : IProfileManager,
             }
             try {
                 val configText = file.readText()
-                ProxyGroupsYamlPreview.parseProxyGroupsPreview(configText)
+                ProxyGroupsYamlPreview.parseProxyGroupsPreview(configText, file.parentFile)
             } catch (_: Exception) {
                 emptyMap()
             }
@@ -355,6 +429,12 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewReplaceRuleProvidersYaml(uuid: UUID, yaml: String): String? {
+        return previewConfigMutation(uuid, "Rule providers") { current ->
+            RuleProvidersYamlEdit.mergeIntoConfig(current, yaml)
+        }
+    }
+
     override suspend fun readProxyProvidersYaml(uuid: UUID): String? {
         return withContext(Dispatchers.IO) {
             if (ImportedDao().queryByUUID(uuid) == null) {
@@ -392,6 +472,12 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewReplaceProxyProvidersYaml(uuid: UUID, yaml: String): String? {
+        return previewConfigMutation(uuid, "Proxy providers") { current ->
+            ProxyProvidersYamlEdit.mergeIntoConfig(current, yaml)
+        }
+    }
+
     override suspend fun appendRelayProxyGroup(
         uuid: UUID,
         groupName: String,
@@ -418,6 +504,17 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewAppendRelayProxyGroup(
+        uuid: UUID,
+        groupName: String,
+        providerKeys: List<String>,
+    ): String? {
+        return previewConfigMutation(uuid, "Proxy group") { current ->
+            ProxyGroupsYamlEdit.appendSelectGroupUsingProviders(current, groupName, providerKeys)
+                ?: throw IllegalArgumentException("Proxy group already exists")
+        }
+    }
+
     override suspend fun removeProxyGroup(uuid: UUID, groupName: String): Boolean {
         return withContext(Dispatchers.IO) {
             if (ImportedDao().queryByUUID(uuid) == null) {
@@ -439,6 +536,13 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewRemoveProxyGroup(uuid: UUID, groupName: String): String? {
+        return previewConfigMutation(uuid, "Proxy group") { current ->
+            ProxyGroupsYamlEdit.removeGroupByName(current, groupName)
+                ?: throw IllegalArgumentException("Proxy group was not found")
+        }
+    }
+
     override suspend fun setProxyDialerProxy(
         uuid: UUID,
         targetProxyName: String,
@@ -455,6 +559,28 @@ class ProfileManager(private val context: Context) : IProfileManager,
                 ok
             } catch (_: Exception) {
                 false
+            }
+        }
+    }
+
+    override suspend fun previewSetProxyDialerProxy(
+        uuid: UUID,
+        targetProxyName: String,
+        dialerProxyName: String?,
+    ): String? {
+        return withContext(Dispatchers.IO) {
+            if (ImportedDao().queryByUUID(uuid) == null) return@withContext null
+            val dir = File(context.importedDir, uuid.toString())
+            try {
+                val patch = ProxyDialerYamlEdit.previewDialerProxy(dir, targetProxyName, dialerProxyName)
+                    ?: throw IllegalArgumentException("Proxy was not found")
+                createPreview(
+                    uuid = uuid,
+                    title = "Proxy chain",
+                    files = listOf(filePreview(dir, patch.relativePath, patch.currentYaml, patch.proposedYaml)),
+                )
+            } catch (e: Exception) {
+                createInvalidPreview("Proxy chain", "", "", e)
             }
         }
     }
@@ -487,6 +613,24 @@ class ProfileManager(private val context: Context) : IProfileManager,
                 ok
             } catch (_: Exception) {
                 false
+            }
+        }
+    }
+
+    override suspend fun previewClearAllProxyDialerChains(uuid: UUID): String? {
+        return withContext(Dispatchers.IO) {
+            if (ImportedDao().queryByUUID(uuid) == null) return@withContext null
+            val dir = File(context.importedDir, uuid.toString())
+            try {
+                val patches = ProxyDialerYamlEdit.previewClearAllDialerProxies(dir)
+                if (patches.isEmpty()) throw IllegalArgumentException("No saved proxy chains")
+                createPreview(
+                    uuid = uuid,
+                    title = "Proxy chains",
+                    files = patches.map { filePreview(dir, it.relativePath, it.currentYaml, it.proposedYaml) },
+                )
+            } catch (e: Exception) {
+                createInvalidPreview("Proxy chains", "", "", e)
             }
         }
     }
@@ -532,6 +676,9 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewApplyRuleState(uuid: UUID, stateJson: String): String? =
+        previewRuleDryRun(uuid, "Rules", ruleApplyService.dryRunStateJson(uuid, stateJson))
+
     override suspend fun addRules(
         uuid: UUID,
         rawRules: List<String>,
@@ -546,12 +693,73 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    override suspend fun previewAddRules(
+        uuid: UUID,
+        rawRules: List<String>,
+        addMode: Boolean,
+        insertMode: String,
+    ): String? = previewRuleDryRun(uuid, "Rules", ruleApplyService.dryRunAddRules(uuid, rawRules, addMode, insertMode))
+
     override suspend fun mutateRule(uuid: UUID, ruleId: String, action: String, enabled: Boolean): Boolean {
         return withContext(Dispatchers.IO) {
             if (ImportedDao().queryByUUID(uuid) == null) return@withContext false
             val ok = ruleApplyService.mutateRule(uuid, ruleId, action, enabled)
             Log.d("mutateRule action=$action enabled=$enabled ok=$ok")
             ok
+        }
+    }
+
+    override suspend fun previewMutateRule(uuid: UUID, ruleId: String, action: String, enabled: Boolean): String? =
+        previewRuleDryRun(uuid, "Rules", ruleApplyService.dryRunMutateRule(uuid, ruleId, action, enabled))
+
+    override suspend fun applyYamlPreview(previewId: String): Boolean {
+        return withContext(Dispatchers.IO) {
+            val cached = synchronized(previewCache) { previewCache.remove(previewId) } ?: return@withContext false
+            if (ImportedDao().queryByUUID(cached.uuid) == null) return@withContext false
+            val dir = File(context.importedDir, cached.uuid.toString())
+
+            // Read + verify hashes for every file before touching anything on disk, and
+            // keep the originals in memory so we can roll a partially-written batch back
+            // if a later write fails. The actual write uses tmp + rename per file so a
+            // single-file write is atomic on the local FS even if the process is killed
+            // mid-flight.
+            val originals = LinkedHashMap<File, String>()
+            for (file in cached.files) {
+                val target = File(dir, file.relativePath)
+                if (!target.isFile) return@withContext false
+                val current = target.readText()
+                if (YamlPreviewSupport.sha256(current) != file.sourceHash) return@withContext false
+                originals[target] = current
+            }
+
+            val written = ArrayList<File>(cached.files.size)
+            try {
+                for (file in cached.files) {
+                    val target = File(dir, file.relativePath)
+                    atomicWriteText(target, file.proposedYaml)
+                    written += target
+                }
+                cached.ruleStateJson?.let {
+                    ruleApplyService.saveStateJson(cached.uuid, it)
+                }
+                context.sendProfileChanged(cached.uuid)
+                true
+            } catch (e: Exception) {
+                Log.w("applyYamlPreview write failed, rolling back ${written.size} file(s)", e)
+                written.forEach { target ->
+                    runCatching { originals[target]?.let { atomicWriteText(target, it) } }
+                }
+                false
+            }
+        }
+    }
+
+    private fun atomicWriteText(target: File, content: String) {
+        val tmp = File(target.parentFile, "${target.name}.applying")
+        tmp.writeText(content)
+        if (!tmp.renameTo(target)) {
+            tmp.delete()
+            throw java.io.IOException("Failed to rename ${tmp.name} to ${target.name}")
         }
     }
 
@@ -602,6 +810,130 @@ class ProfileManager(private val context: Context) : IProfileManager,
         }
     }
 
+    private suspend fun previewRuleDryRun(
+        uuid: UUID,
+        title: String,
+        dryRun: RuleApplyService.RuleDryRun?,
+    ): String? {
+        return withContext(Dispatchers.IO) {
+            if (ImportedDao().queryByUUID(uuid) == null || dryRun == null) return@withContext null
+            try {
+                createPreview(
+                    uuid = uuid,
+                    title = title,
+                    files = listOf(
+                        CachedFile(
+                            relativePath = "config.yaml",
+                            sourceHash = YamlPreviewSupport.sha256(dryRun.currentYaml),
+                            proposedYaml = dryRun.proposedYaml,
+                        )
+                    ),
+                    currentYaml = dryRun.currentYaml,
+                    proposedYaml = dryRun.proposedYaml,
+                    ruleStateJson = previewJson.encodeToString(RuleState.serializer(), dryRun.normalizedState),
+                )
+            } catch (e: Exception) {
+                createInvalidPreview(title, "", "", e)
+            }
+        }
+    }
+
+    private suspend fun previewConfigMutation(
+        uuid: UUID,
+        title: String,
+        mutate: (String) -> String,
+    ): String? {
+        return withContext(Dispatchers.IO) {
+            if (ImportedDao().queryByUUID(uuid) == null) return@withContext null
+            val dir = File(context.importedDir, uuid.toString())
+            val file = File(dir, "config.yaml")
+            if (!file.isFile) return@withContext null
+            val current = file.readText()
+            try {
+                val proposed = mutate(current)
+                YamlPreviewSupport.validateConfigYaml(proposed)
+                createPreview(
+                    uuid = uuid,
+                    title = title,
+                    files = listOf(filePreview(dir, "config.yaml", current, proposed)),
+                    currentYaml = current,
+                    proposedYaml = proposed,
+                )
+            } catch (e: Exception) {
+                createInvalidPreview(title, current, current, e)
+            }
+        }
+    }
+
+    private fun filePreview(dir: File, relativePath: String, current: String, proposed: String): CachedFile {
+        YamlPreviewSupport.validateConfigYaml(proposed)
+        return CachedFile(
+            relativePath = relativePath,
+            sourceHash = YamlPreviewSupport.sha256(current),
+            proposedYaml = proposed,
+        )
+    }
+
+    private fun createPreview(
+        uuid: UUID,
+        title: String,
+        files: List<CachedFile>,
+        currentYaml: String = joinPreviewFiles(
+            files,
+            File(context.importedDir, uuid.toString()),
+            useProposed = false,
+        ),
+        proposedYaml: String = joinPreviewFiles(
+            files,
+            File(context.importedDir, uuid.toString()),
+            useProposed = true,
+        ),
+        ruleStateJson: String? = null,
+    ): String {
+        val id = UUID.randomUUID().toString()
+        synchronized(previewCache) {
+            previewCache[id] = CachedPreview(uuid, files, ruleStateJson)
+            while (previewCache.size > 16) {
+                previewCache.remove(previewCache.keys.first())
+            }
+        }
+        return previewJson.encodeToString(
+            YamlPreview(
+                id = id,
+                title = title,
+                currentYaml = currentYaml,
+                proposedYaml = proposedYaml,
+                diff = YamlPreviewSupport.unifiedDiff(currentYaml, proposedYaml),
+                valid = true,
+            )
+        )
+    }
+
+    private fun createInvalidPreview(title: String, current: String, proposed: String, error: Throwable): String {
+        return previewJson.encodeToString(
+            YamlPreview(
+                id = "",
+                title = title,
+                currentYaml = current,
+                proposedYaml = proposed,
+                diff = YamlPreviewSupport.unifiedDiff(current, proposed),
+                valid = false,
+                error = error.message ?: error.toString(),
+            )
+        )
+    }
+
+    private fun joinPreviewFiles(files: List<CachedFile>, dir: File, useProposed: Boolean): String {
+        return files.joinToString("\n\n") { file ->
+            val body = if (useProposed) {
+                file.proposedYaml
+            } else {
+                File(dir, file.relativePath).readText()
+            }
+            "# ${file.relativePath}\n$body"
+        }
+    }
+
     private suspend fun resolveProfile(uuid: UUID): Profile? {
         val imported = ImportedDao().queryByUUID(uuid)
         val pending = PendingDao().queryByUUID(uuid)
@@ -637,6 +969,12 @@ class ProfileManager(private val context: Context) : IProfileManager,
         return context.pendingDir.resolve(uuid.toString()).directoryLastModified
             ?: context.importedDir.resolve(uuid.toString()).directoryLastModified
             ?: -1
+    }
+
+    private suspend fun nextProfileOrder(): Long {
+        val importedMax = ImportedDao().queryMaxProfileOrder() ?: -1L
+        val pendingMax = PendingDao().queryMaxProfileOrder() ?: -1L
+        return maxOf(importedMax, pendingMax) + 1L
     }
 
     private fun cloneImportedFiles(source: UUID, target: UUID = source) {
