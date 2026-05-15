@@ -34,6 +34,8 @@
     <string name="proxy_empty_tips">Нет групп для отображения</string>
     <string name="home_proxy">Прокси</string>
     <string name="proxy_nodes_empty_connect_vpn">Узлы из proxy-providers появляются в ядре после запуска VPN. Включите VPN и выберите реальный узел (sub1/sub2 — это ключи провайдеров в YAML, не имена прокси).</string>
+    <string name="proxy_nodes_loading">Загружаем список узлов из ядра…</string>
+    <string name="proxy_group_empty_runtime">В этой группе пока нет узлов. Для групп с фильтром в подписке может не быть совпадений; иначе подождите и снова нажмите на чип группы.</string>
 
     <string name="import_failed_title">Не удалось импортировать подписку</string>
     <string name="import_failed_open_editor">Редактировать подписку</string>
@@ -328,6 +330,10 @@
     <string name="proxy_hardening_off">Выкл — поведение Clash.Meta по умолчанию (не рекомендуется)</string>
     <string name="seed_default_geo_mirrors">Подставлять GeoIP/GeoSite зеркала</string>
     <string name="seed_default_geo_mirrors_summary">Если в импортированной подписке нет geox-url, ClashFest подставит зеркала (MetaCubeX/Loyalsoldier). Исправляет ошибку «cant download geoip.dat».</string>
+    <string name="keep_connections_on_old_proxy">Сохранять соединения на старом прокси при смене</string>
+    <string name="keep_connections_on_old_proxy_summary">По умолчанию ClashFest закрывает активные соединения после ручной смены прокси, чтобы новый трафик сразу пошёл через выбранный сервер. Включите эту опцию, чтобы оставлять текущие соединения на старом прокси — полезно для долгих загрузок, видеостримов или игровых сессий, которые не хочется обрывать.</string>
+    <string name="proxy_switch_selector_failed">Не удалось сменить прокси. Текущие соединения не тронуты.</string>
+    <string name="proxy_switch_close_connections_failed">Прокси сменён, но активные соединения закрыть не удалось.</string>
 
     <string name="bypass_private_network">Игнорировать частные сети</string>
     <string name="bypass_private_network_summary">Игнорировать адреса частных сетей</string>
@@ -356,6 +362,18 @@
     <string name="profile_use">Использовать</string>
     <string name="profile_selected_group">Выбранная группа</string>
     <string name="profile_nodes">Узлы</string>
+    <string name="proxy_sheet_active_subscription">Активная подписка</string>
+    <string name="proxy_sheet_group_label">Группа прокси</string>
+    <string name="proxy_sheet_sorted_by_ping">По задержке</string>
+    <string name="proxy_sheet_status_connected">Подключено</string>
+    <string name="proxy_sheet_status_disconnected">Отключено</string>
+    <string name="proxy_sheet_tested_now">Только что проверено</string>
+    <string name="proxy_sheet_tested_seconds_ago">Проверено %dс назад</string>
+    <string name="proxy_sheet_tested_minutes_ago">Проверено %dм назад</string>
+    <string name="proxy_sheet_tested_never">Ещё не проверено</string>
+    <string name="proxy_sheet_expiry_days_hours">Осталось %1$dд %2$dч</string>
+    <string name="proxy_sheet_expiry_hours">Осталось %dч</string>
+    <string name="proxy_sheet_expiry_expired">Истекла</string>
     <string name="profile_start_to_test">Запустите VPN, чтобы проверить задержку</string>
     <string name="profile_update_scheduled">Запущено обновление подписки</string>
     <string name="profile_menu_set_active">Сделать активным</string>
