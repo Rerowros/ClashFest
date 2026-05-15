@@ -8,6 +8,7 @@ import com.github.kr328.clash.design.model.AppInfoSort
 import com.github.kr328.clash.design.model.AppLanguage
 import com.github.kr328.clash.design.model.DarkMode
 import com.github.kr328.clash.design.model.HomeBackgroundStyle
+import com.github.kr328.clash.design.model.ProfileSortMode
 import com.github.kr328.clash.design.model.ThemePalette
 import com.github.kr328.clash.design.model.ThemeTextScale
 
@@ -93,6 +94,12 @@ class UiStore(context: Context) {
     var proxyLastGroup: String by store.string(
         key = "proxy_last_group",
         defaultValue = ""
+    )
+
+    var profileSortMode: ProfileSortMode by store.enum(
+        key = "profile_sort_mode",
+        defaultValue = ProfileSortMode.Manual,
+        values = ProfileSortMode.values(),
     )
 
     /** Persisted Rule / Global / Direct choice; survives VPN stop/start. Empty = use profile/runtime default. */
@@ -193,6 +200,15 @@ class UiStore(context: Context) {
     var subscriptionMetadataLastFetch: Long by store.long(
         key = "sub_meta_last_fetch",
         defaultValue = 0L,
+    )
+
+    /**
+     * Profile UUID this [subscriptionMetadataLastFetch] cooldown was last tied to.
+     * When the active profile differs, cooldown is ignored so a new subscription still gets headers.
+     */
+    var subscriptionMetadataLastFetchProfileId: String by store.string(
+        key = "sub_meta_last_fetch_profile",
+        defaultValue = "",
     )
 
     /** Cached `subscription-userinfo` header (used/total/expiry) of active profile. */

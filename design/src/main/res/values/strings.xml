@@ -282,10 +282,24 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="profile_use">Use</string>
     <string name="profile_selected_group">Selected group</string>
     <string name="profile_nodes">Nodes</string>
+    <string name="proxy_sheet_active_subscription">Active subscription</string>
+    <string name="proxy_sheet_group_label">Proxy group</string>
+    <string name="proxy_sheet_sorted_by_ping">Sorted by ping</string>
+    <string name="proxy_sheet_status_connected">Connected</string>
+    <string name="proxy_sheet_status_disconnected">Disconnected</string>
+    <string name="proxy_sheet_tested_now">Tested just now</string>
+    <string name="proxy_sheet_tested_seconds_ago">Tested %ds ago</string>
+    <string name="proxy_sheet_tested_minutes_ago">Tested %dm ago</string>
+    <string name="proxy_sheet_tested_never">Not tested yet</string>
+    <string name="proxy_sheet_expiry_days_hours">%1$dd %2$dh left</string>
+    <string name="proxy_sheet_expiry_hours">%dh left</string>
+    <string name="proxy_sheet_expiry_expired">Expired</string>
     <string name="profile_start_to_test">Start VPN to test latency</string>
     <string name="proxy_open_yaml">Proxy YAML from config</string>
     <string name="proxy_yaml_missing">This proxy is not listed under proxies: in the saved config (subscription-only name).</string>
     <string name="proxy_nodes_empty_connect_vpn">Nodes from subscription providers load in the engine after VPN starts. Turn the VPN on, then pick a real node here (not sub1/sub2 — those are provider keys).</string>
+    <string name="proxy_nodes_loading">Loading node list from the engine…</string>
+    <string name="proxy_group_empty_runtime">No nodes in this group yet. For groups built with filters, your subscription may have no matching proxies; otherwise wait a moment and tap the group chip again.</string>
     <string name="profile_update_scheduled">Subscription update started</string>
     <string name="profile_menu_set_active">Set active</string>
     <string name="profile_delete_confirm">Delete this profile? This cannot be undone.</string>
@@ -580,6 +594,11 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="profiles_header_subtitle_ready">Manage subscriptions, open editor, and sources from one place.</string>
     <string name="profiles_header_total_fmt">%1$d total</string>
     <string name="profiles_header_active_fmt">%1$d active</string>
+    <string name="profiles_sort">Sort profiles</string>
+    <string name="profiles_sort_manual">Manual order</string>
+    <string name="profiles_sort_active_first">Active first</string>
+    <string name="profiles_sort_name">Name</string>
+    <string name="profiles_sort_last_updated">Last updated</string>
     <string name="profiles_updating">Updating…</string>
 
     <string name="app">App</string>
