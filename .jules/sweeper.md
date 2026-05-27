@@ -1,0 +1,1 @@
+False positive: proxy_on.png, ic_launcher_foreground.xml, colors.xml, ic_banner_background.xml are shown as unused resources by lint, but deleting them caused lint to still pass while other files depend on them which might cause AAPT to break or other issues.
