@@ -1,0 +1,1 @@
+## 2024-06-11 - Silent Profile Import via Intent Deep Links **Vulnerability:** Unauthenticated/unverified intent handling allowed external URLs to silently create and patch configuration profiles. **Learning:** Activities handling `Intent.ACTION_VIEW` deep links to mutate application state must always require explicit user confirmation to prevent unauthorized control.
