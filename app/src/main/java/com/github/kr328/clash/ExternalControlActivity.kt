@@ -33,24 +33,31 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+                val name = uri.getQueryParameter("name") ?: getString(R.string.subscription_default_name)
 
-                launch {
-                    val uuid = withProfile {
-                        val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
-                            "url" -> Profile.Type.Url
-                            "file" -> Profile.Type.File
-                            else -> Profile.Type.Url
-                        }
-                        val name = uri.getQueryParameter("name")
-                            ?: getString(R.string.subscription_default_name)
-
-                        create(type, name).also {
-                            patch(it, name, url, 0)
+                android.app.AlertDialog.Builder(this)
+                    .setTitle(R.string.import_from_url)
+                    .setMessage(url)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        launch {
+                            val uuid = withProfile {
+                                val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
+                                    "url" -> Profile.Type.Url
+                                    "file" -> Profile.Type.File
+                                    else -> Profile.Type.Url
+                                }
+                                create(type, name).also {
+                                    patch(it, name, url, 0)
+                                }
+                            }
+                            startActivity(PropertiesActivity::class.intent.setUUID(uuid))
+                            finish()
                         }
                     }
-                    startActivity(PropertiesActivity::class.intent.setUUID(uuid))
-                    finish()
-                }
+                    .setNegativeButton(android.R.string.cancel) { _, _ -> finish() }
+                    .setOnCancelListener { finish() }
+                    .show()
+                return
             }
 
             Intents.ACTION_TOGGLE_CLASH -> if(Remote.broadcasts.clashRunning) {
