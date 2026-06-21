@@ -35,21 +35,34 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val url = uri.getQueryParameter("url") ?: return finish()
 
                 launch {
-                    val uuid = withProfile {
-                        val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
-                            "url" -> Profile.Type.Url
-                            "file" -> Profile.Type.File
-                            else -> Profile.Type.Url
-                        }
-                        val name = uri.getQueryParameter("name")
-                            ?: getString(R.string.subscription_default_name)
+                    try {
+                        val uuid = withProfile {
+                            val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
+                                "url" -> Profile.Type.Url
+                                "file" -> Profile.Type.File
+                                else -> Profile.Type.Url
+                            }
 
-                        create(type, name).also {
-                            patch(it, name, url, 0)
+                            // 🛡️ Sentinel: Validate URL to prevent Local File Inclusion (LFI) and arbitrary schemes
+                            if (!com.github.kr328.clash.common.util.ShareImportSupport.isAllowedUrlProfileSource(url)) {
+                                return@withProfile null
+                            }
+
+                            val name = uri.getQueryParameter("name")
+                                ?: getString(R.string.subscription_default_name)
+
+                            create(type, name).also {
+                                patch(it, name, url, 0)
+                            }
                         }
+                        if (uuid != null) {
+                            startActivity(PropertiesActivity::class.intent.setUUID(uuid))
+                        }
+                    } catch (e: Exception) {
+                        // Fail securely
+                    } finally {
+                        finish()
                     }
-                    startActivity(PropertiesActivity::class.intent.setUUID(uuid))
-                    finish()
                 }
             }
 
