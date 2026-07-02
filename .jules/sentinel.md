@@ -1,0 +1,1 @@
+## 2024-07-02 - [Profile Import Validation] **Vulnerability:** Unrestricted URL scheme acceptance via External Control intent **Learning:** External intents (e.g. `clash://install-config`) need the same strict URL validation (`ShareImportSupport.isAllowedUrlProfileSource`) as internal profile creation flows to prevent SSRF or arbitrary local file reads.
