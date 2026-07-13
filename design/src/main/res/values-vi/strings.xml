@@ -116,7 +116,6 @@
     <string name="general">Chung</string>
     <string name="geoip_fallback">Dự phòng GeoIP</string>
     <string name="geoip_fallback_code">Mã dự phòng GeoIP</string>
-    <string name="github_issues">Sự cố trên Github</string>
     <string name="github_releases">Bản phát hành trên Github</string>
     <string name="global_mode">Chế độ toàn cầu</string>
     <string name="help">Trợ giúp</string>
