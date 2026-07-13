@@ -165,7 +165,6 @@
     <string name="sources">소스</string>
     <string name="donate">기부</string>
     <string name="clash_wiki">Clash Wiki</string>
-    <string name="github_issues">Github Issues</string>
     <string name="google_play">Google Play</string>
     <string name="clash_meta_core">Clash Meta 코어</string>
     <string name="tips_properties"><![CDATA[<strong>Clash 구성 파일</strong>(<strong>프록시</strong>/<strong>규칙</strong> 포함)만 추가할 수 있습니다.]]></string>
