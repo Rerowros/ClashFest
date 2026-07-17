@@ -1,0 +1,420 @@
+
+> Configure project :core
+Set up dependency: buildCMakeDebug[armeabi-v7a] -> externalGolangBuildAlphaDebugArmeabiV7a
+Set up dependency: buildCMakeDebug[armeabi-v7a] -> externalGolangBuildMetaDebugArmeabiV7a
+Set up dependency: buildCMakeDebug[arm64-v8a] -> externalGolangBuildAlphaDebugArm64V8a
+Set up dependency: buildCMakeDebug[arm64-v8a] -> externalGolangBuildMetaDebugArm64V8a
+Set up dependency: buildCMakeDebug[x86] -> externalGolangBuildAlphaDebugX86
+Set up dependency: buildCMakeDebug[x86] -> externalGolangBuildMetaDebugX86
+Set up dependency: buildCMakeDebug[x86_64] -> externalGolangBuildAlphaDebugX8664
+Set up dependency: buildCMakeDebug[x86_64] -> externalGolangBuildMetaDebugX8664
+Set up dependency: buildCMakeDebug[armeabi-v7a]-2 -> externalGolangBuildAlphaDebugArmeabiV7a
+Set up dependency: buildCMakeDebug[armeabi-v7a]-2 -> externalGolangBuildMetaDebugArmeabiV7a
+Set up dependency: buildCMakeDebug[arm64-v8a]-2 -> externalGolangBuildAlphaDebugArm64V8a
+Set up dependency: buildCMakeDebug[arm64-v8a]-2 -> externalGolangBuildMetaDebugArm64V8a
+Set up dependency: buildCMakeDebug[x86]-2 -> externalGolangBuildAlphaDebugX86
+Set up dependency: buildCMakeDebug[x86]-2 -> externalGolangBuildMetaDebugX86
+Set up dependency: buildCMakeDebug[x86_64]-2 -> externalGolangBuildAlphaDebugX8664
+Set up dependency: buildCMakeDebug[x86_64]-2 -> externalGolangBuildMetaDebugX8664
+Set up dependency: buildCMakeRelWithDebInfo[armeabi-v7a] -> externalGolangBuildAlphaReleaseArmeabiV7a
+Set up dependency: buildCMakeRelWithDebInfo[armeabi-v7a] -> externalGolangBuildMetaReleaseArmeabiV7a
+Set up dependency: buildCMakeRelWithDebInfo[arm64-v8a] -> externalGolangBuildAlphaReleaseArm64V8a
+Set up dependency: buildCMakeRelWithDebInfo[arm64-v8a] -> externalGolangBuildMetaReleaseArm64V8a
+Set up dependency: buildCMakeRelWithDebInfo[x86] -> externalGolangBuildAlphaReleaseX86
+Set up dependency: buildCMakeRelWithDebInfo[x86] -> externalGolangBuildMetaReleaseX86
+Set up dependency: buildCMakeRelWithDebInfo[x86_64] -> externalGolangBuildAlphaReleaseX8664
+Set up dependency: buildCMakeRelWithDebInfo[x86_64] -> externalGolangBuildMetaReleaseX8664
+Set up dependency: buildCMakeRelWithDebInfo[armeabi-v7a]-2 -> externalGolangBuildAlphaReleaseArmeabiV7a
+Set up dependency: buildCMakeRelWithDebInfo[armeabi-v7a]-2 -> externalGolangBuildMetaReleaseArmeabiV7a
+Set up dependency: buildCMakeRelWithDebInfo[arm64-v8a]-2 -> externalGolangBuildAlphaReleaseArm64V8a
+Set up dependency: buildCMakeRelWithDebInfo[arm64-v8a]-2 -> externalGolangBuildMetaReleaseArm64V8a
+Set up dependency: buildCMakeRelWithDebInfo[x86]-2 -> externalGolangBuildAlphaReleaseX86
+Set up dependency: buildCMakeRelWithDebInfo[x86]-2 -> externalGolangBuildMetaReleaseX86
+Set up dependency: buildCMakeRelWithDebInfo[x86_64]-2 -> externalGolangBuildAlphaReleaseX8664
+Set up dependency: buildCMakeRelWithDebInfo[x86_64]-2 -> externalGolangBuildMetaReleaseX8664
+
+> Task :common:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :service:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :service:preBuild UP-TO-DATE
+> Task :service:preAlphaDebugBuild UP-TO-DATE
+> Task :hideapi:preBuild UP-TO-DATE
+> Task :hideapi:preAlphaDebugBuild UP-TO-DATE
+> Task :core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :core:preBuild UP-TO-DATE
+> Task :core:preAlphaDebugBuild UP-TO-DATE
+> Task :common:preBuild UP-TO-DATE
+> Task :common:preAlphaDebugBuild UP-TO-DATE
+> Task :hideapi:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :hideapi:generateAlphaDebugResValues UP-TO-DATE
+> Task :service:generateAlphaDebugResValues UP-TO-DATE
+> Task :service:generateAlphaDebugResources UP-TO-DATE
+> Task :core:generateAlphaDebugResValues UP-TO-DATE
+> Task :hideapi:generateAlphaDebugResources UP-TO-DATE
+> Task :core:generateAlphaDebugResources UP-TO-DATE
+> Task :core:packageAlphaDebugResources UP-TO-DATE
+> Task :service:packageAlphaDebugResources UP-TO-DATE
+> Task :hideapi:packageAlphaDebugResources UP-TO-DATE
+> Task :core:parseAlphaDebugLocalResources UP-TO-DATE
+> Task :service:parseAlphaDebugLocalResources UP-TO-DATE
+> Task :hideapi:parseAlphaDebugLocalResources UP-TO-DATE
+> Task :core:dataBindingTriggerAlphaDebug UP-TO-DATE
+> Task :hideapi:generateAlphaDebugRFile UP-TO-DATE
+> Task :service:dataBindingTriggerAlphaDebug UP-TO-DATE
+> Task :core:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :service:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :hideapi:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :core:generateAlphaDebugRFile UP-TO-DATE
+> Task :service:generateAlphaDebugRFile UP-TO-DATE
+> Task :hideapi:compileAlphaDebugJavaWithJavac UP-TO-DATE
+> Task :core:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :hideapi:bundleLibCompileToJarAlphaDebug UP-TO-DATE
+> Task :design:preBuild UP-TO-DATE
+> Task :design:preAlphaDebugBuild UP-TO-DATE
+> Task :design:mergeAlphaDebugJniLibFolders UP-TO-DATE
+> Task :core:externalGolangBuildAlphaDebugArm64V8a UP-TO-DATE
+> Task :design:mergeAlphaDebugNativeLibs NO-SOURCE
+> Task :design:stripAlphaDebugDebugSymbols NO-SOURCE
+> Task :design:copyAlphaDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :design:generateAlphaDebugResValues UP-TO-DATE
+> Task :core:externalGolangBuildAlphaDebugArmeabiV7a UP-TO-DATE
+> Task :core:externalGolangBuildAlphaDebugX86 UP-TO-DATE
+> Task :core:externalGolangBuildAlphaDebugX8664 UP-TO-DATE
+> Task :core:externalGolangBuildMetaDebugArm64V8a UP-TO-DATE
+> Task :core:externalGolangBuildMetaDebugArmeabiV7a UP-TO-DATE
+> Task :core:externalGolangBuildMetaDebugX86 UP-TO-DATE
+> Task :core:externalGolangBuildMetaDebugX8664 UP-TO-DATE
+> Task :service:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :service:mergeAlphaDebugJniLibFolders UP-TO-DATE
+> Task :service:mergeAlphaDebugNativeLibs NO-SOURCE
+> Task :service:stripAlphaDebugDebugSymbols NO-SOURCE
+> Task :service:copyAlphaDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :service:extractDeepLinksForAarAlphaDebug UP-TO-DATE
+> Task :service:mergeAlphaDebugShaders UP-TO-DATE
+> Task :service:compileAlphaDebugShaders NO-SOURCE
+> Task :service:generateAlphaDebugAssets UP-TO-DATE
+> Task :service:packageAlphaDebugAssets UP-TO-DATE
+> Task :design:generateAlphaDebugResources
+> Task :service:prepareAlphaDebugArtProfile UP-TO-DATE
+> Task :service:prepareLintJarForPublish UP-TO-DATE
+> Task :common:dataBindingMergeDependencyArtifactsAlphaDebug UP-TO-DATE
+> Task :common:generateAlphaDebugResValues UP-TO-DATE
+> Task :common:generateAlphaDebugResources UP-TO-DATE
+> Task :service:processAlphaDebugManifest UP-TO-DATE
+> Task :service:writeAlphaDebugAarMetadata UP-TO-DATE
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preAlphaDebugBuild UP-TO-DATE
+> Task :core:configureCMakeDebug[arm64-v8a]
+> Task :common:packageAlphaDebugResources UP-TO-DATE
+> Task :app:generateAlphaDebugResValues UP-TO-DATE
+> Task :common:parseAlphaDebugLocalResources UP-TO-DATE
+> Task :app:generateAlphaDebugResources UP-TO-DATE
+> Task :common:dataBindingGenBaseClassesAlphaDebug UP-TO-DATE
+> Task :core:buildCMakeDebug[arm64-v8a]
+> Task :app:packageAlphaDebugResources UP-TO-DATE
+> Task :common:dataBindingTriggerAlphaDebug UP-TO-DATE
+> Task :common:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :common:generateAlphaDebugRFile UP-TO-DATE
+> Task :app:parseAlphaDebugLocalResources UP-TO-DATE
+> Task :core:configureCMakeDebug[armeabi-v7a]
+> Task :app:dataBindingTriggerAlphaDebug UP-TO-DATE
+> Task :app:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :app:createAlphaDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksAlphaDebug UP-TO-DATE
+> Task :service:extractDeepLinksAlphaDebug UP-TO-DATE
+> Task :core:buildCMakeDebug[armeabi-v7a]
+> Task :service:compileAlphaDebugLibraryResources UP-TO-DATE
+> Task :core:configureCMakeDebug[x86]
+> Task :app:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :app:preAlphaDebugAndroidTestBuild SKIPPED
+> Task :app:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :core:buildCMakeDebug[x86]
+> Task :service:writeAlphaDebugLintModelMetadata UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :hideapi:bundleLibRuntimeToJarAlphaDebug UP-TO-DATE
+> Task :hideapi:processAlphaDebugJavaRes NO-SOURCE
+> Task :hideapi:createFullJarAlphaDebug UP-TO-DATE
+> Task :hideapi:extractProguardFiles UP-TO-DATE
+> Task :core:configureCMakeDebug[x86_64]
+> Task :hideapi:processAlphaDebugManifest UP-TO-DATE
+> Task :core:buildCMakeDebug[x86_64]
+> Task :core:mergeAlphaDebugJniLibFolders UP-TO-DATE
+> Task :hideapi:generateAlphaDebugLintModel UP-TO-DATE
+> Task :hideapi:prepareLintJarForPublish UP-TO-DATE
+> Task :core:mergeAlphaDebugNativeLibs UP-TO-DATE
+> Task :service:extractProguardFiles UP-TO-DATE
+> Task :core:stripAlphaDebugDebugSymbols UP-TO-DATE
+> Task :app:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :core:copyAlphaDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :hideapi:mergeAlphaDebugJniLibFolders UP-TO-DATE
+> Task :core:extractDeepLinksForAarAlphaDebug UP-TO-DATE
+> Task :hideapi:mergeAlphaDebugNativeLibs NO-SOURCE
+> Task :core:mergeAlphaDebugShaders UP-TO-DATE
+> Task :hideapi:stripAlphaDebugDebugSymbols NO-SOURCE
+> Task :hideapi:copyAlphaDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :core:compileAlphaDebugShaders NO-SOURCE
+> Task :core:generateAlphaDebugAssets UP-TO-DATE
+> Task :core:packageAlphaDebugAssets UP-TO-DATE
+> Task :core:prepareAlphaDebugArtProfile UP-TO-DATE
+> Task :core:prepareLintJarForPublish UP-TO-DATE
+> Task :common:compileAlphaDebugKotlin UP-TO-DATE
+> Task :core:processAlphaDebugManifest UP-TO-DATE
+> Task :core:writeAlphaDebugAarMetadata UP-TO-DATE
+> Task :common:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :hideapi:extractAlphaDebugAnnotations UP-TO-DATE
+> Task :hideapi:extractDeepLinksForAarAlphaDebug UP-TO-DATE
+> Task :hideapi:mergeAlphaDebugGeneratedProguardFiles UP-TO-DATE
+> Task :hideapi:mergeAlphaDebugConsumerProguardFiles UP-TO-DATE
+> Task :core:extractDeepLinksAlphaDebug
+> Task :hideapi:mergeAlphaDebugShaders UP-TO-DATE
+> Task :hideapi:compileAlphaDebugShaders NO-SOURCE
+> Task :hideapi:generateAlphaDebugAssets UP-TO-DATE
+> Task :hideapi:packageAlphaDebugAssets UP-TO-DATE
+> Task :hideapi:prepareAlphaDebugArtProfile UP-TO-DATE
+> Task :common:compileAlphaDebugJavaWithJavac UP-TO-DATE
+> Task :hideapi:mergeAlphaDebugJavaResource UP-TO-DATE
+> Task :common:bundleLibCompileToJarAlphaDebug UP-TO-DATE
+> Task :hideapi:syncAlphaDebugLibJars UP-TO-DATE
+> Task :common:mergeAlphaDebugJniLibFolders UP-TO-DATE
+> Task :hideapi:writeAlphaDebugAarMetadata UP-TO-DATE
+> Task :common:mergeAlphaDebugNativeLibs NO-SOURCE
+> Task :hideapi:bundleAlphaDebugLocalLintAar UP-TO-DATE
+> Task :common:stripAlphaDebugDebugSymbols NO-SOURCE
+> Task :common:copyAlphaDebugJniLibsProjectAndLocalJars UP-TO-DATE
+> Task :hideapi:lintAnalyzeAlphaDebug UP-TO-DATE
+> Task :hideapi:writeAlphaDebugLintModelMetadata UP-TO-DATE
+> Task :hideapi:preAlphaDebugAndroidTestBuild UP-TO-DATE
+> Task :hideapi:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :common:extractAlphaDebugAnnotations UP-TO-DATE
+> Task :common:extractDeepLinksForAarAlphaDebug UP-TO-DATE
+> Task :common:mergeAlphaDebugGeneratedProguardFiles UP-TO-DATE
+> Task :common:mergeAlphaDebugConsumerProguardFiles UP-TO-DATE
+> Task :common:mergeAlphaDebugShaders UP-TO-DATE
+> Task :hideapi:generateAlphaDebugAndroidTestLintModel UP-TO-DATE
+> Task :hideapi:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :common:compileAlphaDebugShaders NO-SOURCE
+> Task :common:generateAlphaDebugAssets UP-TO-DATE
+> Task :common:packageAlphaDebugAssets UP-TO-DATE
+> Task :common:prepareAlphaDebugArtProfile UP-TO-DATE
+> Task :common:prepareLintJarForPublish UP-TO-DATE
+> Task :common:processAlphaDebugManifest UP-TO-DATE
+> Task :common:processAlphaDebugJavaRes UP-TO-DATE
+> Task :common:mergeAlphaDebugJavaResource UP-TO-DATE
+> Task :hideapi:generateAlphaDebugUnitTestLintModel UP-TO-DATE
+> Task :common:syncAlphaDebugLibJars UP-TO-DATE
+> Task :common:writeAlphaDebugAarMetadata UP-TO-DATE
+> Task :common:bundleAlphaDebugLocalLintAar UP-TO-DATE
+> Task :common:extractDeepLinksAlphaDebug UP-TO-DATE
+> Task :common:compileAlphaDebugLibraryResources UP-TO-DATE
+> Task :common:bundleLibRuntimeToJarAlphaDebug UP-TO-DATE
+> Task :core:compileAlphaDebugLibraryResources
+> Task :common:createFullJarAlphaDebug UP-TO-DATE
+> Task :common:writeAlphaDebugLintModelMetadata UP-TO-DATE
+> Task :common:extractProguardFiles UP-TO-DATE
+> Task :hideapi:lintAnalyzeAlphaDebugAndroidTest UP-TO-DATE
+> Task :common:generateAlphaDebugLintModel UP-TO-DATE
+> Task :common:lintAnalyzeAlphaDebug UP-TO-DATE
+> Task :common:preAlphaDebugAndroidTestBuild UP-TO-DATE
+> Task :common:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :hideapi:lintAnalyzeAlphaDebugUnitTest UP-TO-DATE
+> Task :service:preAlphaDebugAndroidTestBuild UP-TO-DATE
+> Task :service:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :service:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :core:dataBindingMergeDependencyArtifactsAlphaDebug UP-TO-DATE
+> Task :core:dataBindingGenBaseClassesAlphaDebug UP-TO-DATE
+> Task :common:generateAlphaDebugAndroidTestLintModel UP-TO-DATE
+> Task :common:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :core:compileAlphaDebugKotlin UP-TO-DATE
+> Task :common:generateAlphaDebugUnitTestLintModel UP-TO-DATE
+> Task :common:lintAnalyzeAlphaDebugAndroidTest UP-TO-DATE
+> Task :core:compileAlphaDebugJavaWithJavac UP-TO-DATE
+> Task :common:lintAnalyzeAlphaDebugUnitTest UP-TO-DATE
+> Task :core:extractAlphaDebugAnnotations UP-TO-DATE
+> Task :core:mergeAlphaDebugGeneratedProguardFiles UP-TO-DATE
+> Task :core:mergeAlphaDebugConsumerProguardFiles UP-TO-DATE
+> Task :core:processAlphaDebugJavaRes UP-TO-DATE
+> Task :core:mergeAlphaDebugJavaResource UP-TO-DATE
+> Task :core:syncAlphaDebugLibJars UP-TO-DATE
+> Task :core:bundleAlphaDebugLocalLintAar UP-TO-DATE
+> Task :core:bundleLibCompileToJarAlphaDebug UP-TO-DATE
+> Task :core:bundleLibRuntimeToJarAlphaDebug UP-TO-DATE
+> Task :core:createFullJarAlphaDebug UP-TO-DATE
+> Task :core:writeAlphaDebugLintModelMetadata UP-TO-DATE
+> Task :core:extractProguardFiles UP-TO-DATE
+> Task :service:dataBindingMergeDependencyArtifactsAlphaDebug UP-TO-DATE
+> Task :service:dataBindingGenBaseClassesAlphaDebug UP-TO-DATE
+> Task :core:generateAlphaDebugLintModel UP-TO-DATE
+> Task :core:lintAnalyzeAlphaDebug UP-TO-DATE
+> Task :core:preAlphaDebugAndroidTestBuild UP-TO-DATE
+> Task :core:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :design:packageAlphaDebugResources
+> Task :design:parseAlphaDebugLocalResources
+> Task :design:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :design:dataBindingTriggerAlphaDebug UP-TO-DATE
+> Task :design:generateAlphaDebugBuildConfig UP-TO-DATE
+> Task :core:generateAlphaDebugAndroidTestLintModel UP-TO-DATE
+> Task :design:extractDeepLinksForAarAlphaDebug UP-TO-DATE
+> Task :service:kspAlphaDebugKotlin UP-TO-DATE
+> Task :design:javaPreCompileAlphaDebug UP-TO-DATE
+> Task :design:mergeAlphaDebugShaders UP-TO-DATE
+> Task :design:compileAlphaDebugShaders NO-SOURCE
+> Task :design:generateAlphaDebugAssets UP-TO-DATE
+> Task :design:packageAlphaDebugAssets UP-TO-DATE
+> Task :design:prepareAlphaDebugArtProfile UP-TO-DATE
+> Task :design:prepareLintJarForPublish UP-TO-DATE
+> Task :service:compileAlphaDebugKotlin UP-TO-DATE
+> Task :design:generateAlphaDebugRFile
+> Task :core:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :design:processAlphaDebugManifest UP-TO-DATE
+> Task :design:writeAlphaDebugAarMetadata UP-TO-DATE
+> Task :design:extractDeepLinksAlphaDebug UP-TO-DATE
+> Task :service:compileAlphaDebugJavaWithJavac UP-TO-DATE
+> Task :service:extractAlphaDebugAnnotations UP-TO-DATE
+> Task :service:mergeAlphaDebugGeneratedProguardFiles UP-TO-DATE
+> Task :service:mergeAlphaDebugConsumerProguardFiles UP-TO-DATE
+> Task :core:generateAlphaDebugUnitTestLintModel UP-TO-DATE
+> Task :service:processAlphaDebugJavaRes UP-TO-DATE
+> Task :service:mergeAlphaDebugJavaResource UP-TO-DATE
+> Task :service:syncAlphaDebugLibJars UP-TO-DATE
+> Task :service:bundleAlphaDebugLocalLintAar UP-TO-DATE
+> Task :core:lintAnalyzeAlphaDebugAndroidTest UP-TO-DATE
+> Task :service:bundleLibCompileToJarAlphaDebug UP-TO-DATE
+> Task :service:bundleLibRuntimeToJarAlphaDebug UP-TO-DATE
+> Task :service:createFullJarAlphaDebug UP-TO-DATE
+> Task :service:generateAlphaDebugLintModel UP-TO-DATE
+> Task :service:lintAnalyzeAlphaDebug UP-TO-DATE
+> Task :core:lintAnalyzeAlphaDebugUnitTest UP-TO-DATE
+> Task :service:generateAlphaDebugAndroidTestLintModel UP-TO-DATE
+> Task :service:generateAlphaDebugUnitTestLintModel UP-TO-DATE
+> Task :service:lintAnalyzeAlphaDebugAndroidTest UP-TO-DATE
+> Task :service:lintAnalyzeAlphaDebugUnitTest UP-TO-DATE
+> Task :design:compileAlphaDebugLibraryResources
+> Task :design:dataBindingMergeDependencyArtifactsAlphaDebug UP-TO-DATE
+> Task :design:dataBindingGenBaseClassesAlphaDebug
+> Task :design:writeAlphaDebugLintModelMetadata UP-TO-DATE
+> Task :design:extractProguardFiles UP-TO-DATE
+> Task :design:preAlphaDebugAndroidTestBuild UP-TO-DATE
+> Task :design:generateAlphaDebugAndroidTestResValues UP-TO-DATE
+> Task :design:preAlphaDebugUnitTestBuild UP-TO-DATE
+> Task :app:mergeAlphaDebugResources
+> Task :app:mapAlphaDebugSourceSetPaths
+> Task :app:checkAlphaDebugAarMetadata
+
+> Task :design:kaptGenerateStubsAlphaDebugKotlin
+w: Support for language version 2.0+ in kapt is in Alpha and must be enabled explicitly. Falling back to 1.9.
+
+> Task :app:processAlphaDebugMainManifest
+> Task :app:processAlphaDebugManifest
+> Task :app:processAlphaDebugManifestForPackage
+> Task :app:processAlphaDebugResources
+> Task :design:kaptAlphaDebugKotlin
+> Task :app:dataBindingMergeDependencyArtifactsAlphaDebug
+> Task :app:dataBindingGenBaseClassesAlphaDebug
+> Task :design:compileAlphaDebugKotlin
+> Task :design:extractAlphaDebugAnnotations
+
+> Task :design:compileAlphaDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :design:mergeAlphaDebugGeneratedProguardFiles UP-TO-DATE
+> Task :design:mergeAlphaDebugConsumerProguardFiles UP-TO-DATE
+> Task :design:processAlphaDebugJavaRes UP-TO-DATE
+> Task :design:mergeAlphaDebugJavaResource UP-TO-DATE
+> Task :design:syncAlphaDebugLibJars
+> Task :design:bundleAlphaDebugLocalLintAar
+> Task :design:bundleLibCompileToJarAlphaDebug
+> Task :design:generateAlphaDebugLintModel
+> Task :design:bundleLibRuntimeToJarAlphaDebug
+> Task :design:createFullJarAlphaDebug
+> Task :design:generateAlphaDebugAndroidTestLintModel
+> Task :design:generateAlphaDebugUnitTestLintModel
+> Task :design:lintAnalyzeAlphaDebugUnitTest
+> Task :design:lintAnalyzeAlphaDebugAndroidTest
+
+> Task :app:compileAlphaDebugKotlin
+w: file:///app/app/src/main/java/com/github/kr328/clash/BaseActivity.kt:169:14 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
+      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.
+      The OnBackPressedDispatcher controls how back button events are dispatched
+      to one or more {@link OnBackPressedCallback} objects.
+w: file:///app/app/src/main/java/com/github/kr328/clash/BaseActivity.kt:238:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///app/app/src/main/java/com/github/kr328/clash/BaseActivity.kt:238:67 'static field statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///app/app/src/main/java/com/github/kr328/clash/BaseActivity.kt:239:16 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///app/app/src/main/java/com/github/kr328/clash/BaseActivity.kt:239:71 'static field navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///app/app/src/main/java/com/github/kr328/clash/FilesActivity.kt:125:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///app/app/src/main/java/com/github/kr328/clash/LogcatService.kt:63:9 'fun stopForeground(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///app/app/src/main/java/com/github/kr328/clash/PropertiesActivity.kt:112:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Please add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///app/app/src/main/java/com/github/kr328/clash/PropertiesActivity.kt:120:27 'fun onBackPressed(): Unit' is deprecated. This method has been deprecated in favor of using the
+      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.
+      The OnBackPressedDispatcher controls how back button events are dispatched
+      to one or more {@link OnBackPressedCallback} objects.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:157:34 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:168:48 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:177:60 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:242:48 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:265:52 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+w: file:///app/app/src/main/java/com/github/kr328/clash/RuleSnippetActivity.kt:274:64 Unchecked cast of 'android.widget.ListAdapter!' to 'android.widget.ArrayAdapter<kotlin.String>'.
+
+> Task :app:compileAlphaDebugJavaWithJavac
+> Task :app:bundleAlphaDebugClassesToCompileJar
+> Task :app:generateAlphaDebugLintReportModel
+> Task :app:generateAlphaDebugAndroidTestLintModel
+> Task :app:generateAlphaDebugUnitTestLintModel
+> Task :app:lintAnalyzeAlphaDebugUnitTest
+> Task :app:lintAnalyzeAlphaDebugAndroidTest
+> Task :design:lintAnalyzeAlphaDebug
+> Task :app:lintAnalyzeAlphaDebug
+
+> Task :app:lintReportAlphaDebug
+Wrote HTML report to file:///app/app/build/reports/lint-results-alphaDebug.html
+
+> Task :app:lintAlphaDebug FAILED
+Lint found 8 errors, 53 warnings. First failure:
+
+/app/app/src/main/java/com/github/kr328/clash/util/AppUpdateChecker.kt:146: Error: Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with checkPermission) or explicitly handle a potential SecurityException [MissingPermission]
+        nm.notify(NOTIFICATION_ID, notification)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The full lint text report is located at:
+  /app/app/build/intermediates/lint_intermediate_text_report/alphaDebug/lintReportAlphaDebug/lint-results-alphaDebug.txt
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:lintAlphaDebug'.
+> Lint found errors in the project; aborting build.
+
+  Fix the issues identified by lint, or create a baseline to see only new errors.
+  To create a baseline, run `gradlew updateLintBaseline` after adding the following to the module's build.gradle file:
+  ```
+  android {
+      lint {
+          baseline = file("lint-baseline.xml")
+      }
+  }
+  ```
+  For more details, see https://developer.android.com/studio/write/lint#snapshot
+
+  Lint found 8 errors, 53 warnings. First failure:
+
+  /app/app/src/main/java/com/github/kr328/clash/util/AppUpdateChecker.kt:146: Error: Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with checkPermission) or explicitly handle a potential SecurityException [MissingPermission]
+          nm.notify(NOTIFICATION_ID, notification)
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  The full lint text report is located at:
+    /app/app/build/intermediates/lint_intermediate_text_report/alphaDebug/lintReportAlphaDebug/lint-results-alphaDebug.txt
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 1m 10s
+255 actionable tasks: 52 executed, 203 up-to-date
