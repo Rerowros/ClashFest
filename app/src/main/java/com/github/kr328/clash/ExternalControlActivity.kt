@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.util.*
+import com.github.kr328.clash.common.util.ShareImportSupport
 import com.github.kr328.clash.design.R
 
 class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
@@ -33,6 +34,12 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+
+                // Security: Validate external URLs from intents to prevent SSRF and unauthorized local file access.
+                if (!ShareImportSupport.isAllowedUrlProfileSource(url)) {
+                    Toast.makeText(this, R.string.invalid_url, Toast.LENGTH_LONG).show()
+                    return finish()
+                }
 
                 launch {
                     val uuid = withProfile {
