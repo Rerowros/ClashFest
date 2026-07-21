@@ -34,6 +34,12 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
 
+                // SECURITY: Validate intent-provided URL to prevent SSRF and arbitrary configuration injection
+                if (!com.github.kr328.clash.common.util.ShareImportSupport.isAllowedUrlProfileSource(url)) {
+                    Toast.makeText(this, R.string.invalid_url, Toast.LENGTH_LONG).show()
+                    return finish()
+                }
+
                 launch {
                     val uuid = withProfile {
                         val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
