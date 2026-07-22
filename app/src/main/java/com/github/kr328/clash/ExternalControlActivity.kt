@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.util.intent
+import com.github.kr328.clash.common.util.ShareImportSupport
 import com.github.kr328.clash.common.util.setUUID
 import com.github.kr328.clash.design.MainDesign
 import com.github.kr328.clash.design.ui.ToastDuration
@@ -33,6 +34,9 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+
+                // Ensure external URLs and intent-provided sources are validated to prevent SSRF
+                if (!ShareImportSupport.isAllowedUrlProfileSource(url)) return finish()
 
                 launch {
                     val uuid = withProfile {
