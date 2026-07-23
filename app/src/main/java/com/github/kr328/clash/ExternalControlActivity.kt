@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kr328.clash.common.constants.Intents
+import com.github.kr328.clash.common.util.ShareImportSupport
 import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.common.util.setUUID
 import com.github.kr328.clash.design.MainDesign
@@ -33,6 +34,11 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+
+                if (!ShareImportSupport.isAllowedUrlProfileSource(url)) {
+                    Toast.makeText(this@ExternalControlActivity, R.string.invalid_url, Toast.LENGTH_LONG).show()
+                    return finish()
+                }
 
                 launch {
                     val uuid = withProfile {
