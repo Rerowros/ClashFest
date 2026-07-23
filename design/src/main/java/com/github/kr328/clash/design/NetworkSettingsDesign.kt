@@ -20,11 +20,7 @@ class NetworkSettingsDesign(
     uiStore: UiStore,
     srvStore: ServiceStore,
     running: Boolean,
-) : Design<NetworkSettingsDesign.Request>(context) {
-    enum class Request {
-        Unused
-    }
-
+) : Design<Unit>(context) {
     private val binding = DesignSettingsCommonBinding
         .inflate(context.layoutInflater, context.root, false)
 
