@@ -110,7 +110,6 @@
     <string name="format_provider_type">%1$s(%2$s)</string>
     <string name="format_traffic_forwarded">%s được sử dụng</string>
     <string name="format_type_unsaved">%s (Chưa lưu)</string>
-    <string name="format_update_complete">Cập nhật %s thành công</string>
     <string name="format_update_failure">Cập nhật %1$s: %2$s</string>
     <string name="format_update_provider_failure">Cập nhật %1$s: %2$s</string>
     <string name="general">Chung</string>
@@ -224,7 +223,6 @@
     <string name="update">Cập nhật</string>
     <string name="update_all">Cập nhật tất cả</string>
     <string name="update_failure">Cập nhật thất bại</string>
-    <string name="update_successfully">Cập nhật thành công</string>
     <string name="update_time">Thời gian cập nhật</string>
     <string name="url">Liên kết URL</string>
     <string name="use_built_in">Sử dụng tích hợp</string>
