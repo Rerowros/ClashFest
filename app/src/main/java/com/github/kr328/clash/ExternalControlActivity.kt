@@ -10,6 +10,7 @@ import com.github.kr328.clash.common.util.intent
 import com.github.kr328.clash.common.util.setUUID
 import com.github.kr328.clash.design.MainDesign
 import com.github.kr328.clash.design.ui.ToastDuration
+import com.github.kr328.clash.common.util.ShareImportSupport
 import com.github.kr328.clash.remote.Remote
 import com.github.kr328.clash.remote.StatusClient
 import com.github.kr328.clash.service.model.Profile
@@ -33,6 +34,11 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+
+                if (!ShareImportSupport.isAllowedUrlProfileSource(url)) {
+                    Toast.makeText(this@ExternalControlActivity, R.string.invalid_url, Toast.LENGTH_LONG).show()
+                    return finish()
+                }
 
                 launch {
                     val uuid = withProfile {
