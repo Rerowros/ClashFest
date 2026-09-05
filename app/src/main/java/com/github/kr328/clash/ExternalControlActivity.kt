@@ -33,6 +33,8 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+                // Sentinel: Prevent SSRF by validating the external URL
+                if (!android.webkit.URLUtil.isNetworkUrl(url)) return finish()
 
                 launch {
                     val uuid = withProfile {
