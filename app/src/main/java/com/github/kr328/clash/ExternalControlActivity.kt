@@ -34,6 +34,9 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
 
+                // SECURITY: Mitigate SSRF/LFI by ensuring the url is a network url
+                if (!android.webkit.URLUtil.isNetworkUrl(url)) return finish()
+
                 launch {
                     val uuid = withProfile {
                         val type = when (uri.getQueryParameter("type")?.lowercase(Locale.getDefault())) {
