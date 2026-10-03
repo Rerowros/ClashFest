@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.util.*
+import android.webkit.URLUtil
 import com.github.kr328.clash.design.R
 
 class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
@@ -33,6 +34,8 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+
+                if (!URLUtil.isNetworkUrl(url)) return finish()
 
                 launch {
                     val uuid = withProfile {
