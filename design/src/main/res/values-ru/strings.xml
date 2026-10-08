@@ -6,7 +6,6 @@
     <string name="main_status_connecting">Подключаем</string>
     <string name="main_status_stopped">Отключено</string>
     <string name="main_power_start">Включить</string>
-    <string name="main_power_stop">Стоп</string>
     <string name="main_power_hint_start">Нажмите, чтобы включить</string>
     <string name="main_power_hint_stop">Нажмите, чтобы отключить</string>
     <string name="main_select_server">Серверы</string>
