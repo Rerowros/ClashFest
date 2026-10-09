@@ -6,6 +6,7 @@
 
     <string name="stopped">Stopped</string>
     <string name="tap_to_start">Tap to start</string>
+    <string name="main_vpn_ready">Ready to start</string>
     <string name="main_status_connected">Connected</string>
     <string name="main_status_connecting">Connecting</string>
     <string name="main_status_stopped">Disconnected</string>
@@ -17,7 +18,6 @@
     <string name="main_select_server_group">Choose server or group</string>
     <string name="main_selected_group_fmt">Group: %1$s</string>
     <string name="main_selected_route_fmt">Group: %1$s · Server: %2$s</string>
-    <string name="main_session_title">Session</string>
     <string name="main_profile_title">Profile</string>
     <string name="main_active_profile_title">Active profile</string>
     <string name="main_routing_summary">Rules, apps and route providers</string>

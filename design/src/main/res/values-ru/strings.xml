@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
     <string name="stopped">Остановлен</string>
     <string name="tap_to_start">Нажмите для запуска</string>
+    <string name="main_vpn_ready">Готово к запуску</string>
     <string name="main_status_connected">Подключено</string>
     <string name="main_status_connecting">Подключаем</string>
     <string name="main_status_stopped">Отключено</string>
@@ -12,7 +13,6 @@
     <string name="main_select_server_group">Выбрать сервер или группу</string>
     <string name="main_selected_group_fmt">Группа: %1$s</string>
     <string name="main_selected_route_fmt">Группа: %1$s · Сервер: %2$s</string>
-    <string name="main_session_title">Сессия</string>
     <string name="main_profile_title">Профиль</string>
     <string name="main_active_profile_title">Активный профиль</string>
     <string name="main_routing_summary">Правила, приложения и провайдеры</string>
