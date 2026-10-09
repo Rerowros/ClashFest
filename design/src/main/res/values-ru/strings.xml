@@ -13,7 +13,6 @@
     <string name="main_select_server_group">Выбрать сервер или группу</string>
     <string name="main_selected_group_fmt">Группа: %1$s</string>
     <string name="main_selected_route_fmt">Группа: %1$s · Сервер: %2$s</string>
-    <string name="main_session_title">Сессия</string>
     <string name="main_profile_title">Профиль</string>
     <string name="main_active_profile_title">Активный профиль</string>
     <string name="main_routing_summary">Правила, приложения и провайдеры</string>
