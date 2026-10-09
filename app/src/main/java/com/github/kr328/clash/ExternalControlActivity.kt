@@ -34,10 +34,7 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
 
-                if (!android.webkit.URLUtil.isNetworkUrl(url)) {
-                    android.widget.Toast.makeText(this@ExternalControlActivity, com.github.kr328.clash.design.R.string.invalid_url, android.widget.Toast.LENGTH_LONG).show()
-                    return finish()
-                }
+                if (!android.webkit.URLUtil.isNetworkUrl(url)) return finish()
 
                 launch {
                     val uuid = withProfile {
