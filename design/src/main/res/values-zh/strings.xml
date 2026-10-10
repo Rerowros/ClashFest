@@ -423,7 +423,6 @@
     <string name="profiles_header_total_fmt">总计：%1$d</string>
     <string name="profiles_header_active_fmt">已启用：%1$d</string>
     <string name="profiles_updating">更新中…</string>
-    <string name="mode_chip_direct">直连</string>
     <string name="mode_chip_global">全局</string>
     <string name="mode_chip_rule">规则</string>
     <string name="profile_delete_confirm">删除此配置？此操作不可撤销。</string>
