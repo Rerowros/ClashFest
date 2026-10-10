@@ -31,7 +31,6 @@
     <string name="mode_chip_rule">Правила</string>
     <string name="mode_chip_global">Глобальный</string>
     <string name="mode_chip_direct">Прямой</string>
-    <string name="proxy_empty_tips">Нет групп для отображения</string>
     <string name="home_proxy">Прокси</string>
     <string name="proxy_nodes_empty_connect_vpn">Узлы из proxy-providers появляются в ядре после запуска VPN. Включите VPN и выберите реальный узел (sub1/sub2 — это ключи провайдеров в YAML, не имена прокси).</string>
 
