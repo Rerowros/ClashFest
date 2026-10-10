@@ -35,11 +35,12 @@
     <string name="global_mode">Global Mode</string>
     <string name="mode_chip_rule">Rule</string>
     <string name="mode_chip_global">Global</string>
+    <string name="mode_chip_direct">Direct</string>
     <string name="main_emoji_moon" translatable="false">\uD83C\uDF19</string>
     <string name="main_emoji_sun" translatable="false">\u2600</string>
     <string name="mode_emoji_rule" translatable="false">\uD83D\uDCDC</string>
     <string name="mode_emoji_global" translatable="false">\uD83C\uDF0D</string>
-    <string name="proxy_empty_tips">No groups can be displayed</string>
+    <string name="mode_emoji_direct" translatable="false">\u27A1\uFE0F</string>
 
     <string name="profiles">Profiles</string>
     <string name="not_selected">Not selected</string>
