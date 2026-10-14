@@ -297,7 +297,6 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="sub_meta_allow_http">Allow HTTP for subscription metadata probe</string>
     <string name="sub_meta_allow_http_summary">When off, metadata headers are only fetched over HTTPS. Enable only if your panel uses HTTP (cleartext).</string>
     <string name="rule_apply_active_only">Active profile only</string>
-    <string name="rule_apply_replace_all">Active profile (replace all rules)</string>
     <string name="rule_insert_mode">Insert mode for new rules</string>
     <string name="rule_insert_append">Append to bottom</string>
     <string name="rule_insert_prepend">Prepend to top</string>

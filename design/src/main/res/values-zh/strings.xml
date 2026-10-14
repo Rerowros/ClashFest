@@ -503,7 +503,6 @@
     <string name="routing_rules">路由规则</string>
     <string name="rule_add_new">添加提供商或规则</string>
     <string name="rule_apply_active_only">仅活动配置</string>
-    <string name="rule_apply_replace_all">活动配置（替换全部规则）</string>
     <string name="rule_create_manual">手动规则</string>
     <string name="rule_create_online">在线列表（提供商）</string>
     <string name="rule_create_preset">预设</string>
