@@ -106,7 +106,6 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="advanced_hub_geo_summary">Databases, meta features and core toggles</string>
     <string name="advanced_hub_network_summary">VPN, routing hardening and DNS</string>
     <string name="settings_geo">Geo</string>
-    <string name="main_open_settings_summary">Theme, network, updates and advanced options</string>
     <string name="main_open_theme_summary">Dark mode, palette and text scale</string>
     <string name="main_open_language_summary">Change app language without opening deep settings</string>
     <string name="main_open_subscription_identity_summary">HWID, clashfest:// scheme and copy buttons</string>
@@ -258,6 +257,7 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="rule_manual_policy">Proxy policy</string>
     <string name="rule_manual_prepend">Prepend rule</string>
     <string name="rule_manual_append">Append rule</string>
+    <string name="rule_manual_clear">Clear list</string>
     <string name="rule_manual_content_hint">e.g. google.com or 10.0.0.0/8</string>
     <string name="rule_manual_match_hint">MATCH uses only policy (leave content empty)</string>
     <string name="rule_manual_need_content">Enter rule content for this type</string>
