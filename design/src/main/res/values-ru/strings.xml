@@ -160,6 +160,7 @@
     <string name="update_notification_channel_description">Периодическая проверка обновлений ClashFest</string>
     <string name="update_notification_title">Доступно обновление ClashFest</string>
     <string name="update_notification_text">Новая версия: %1$s</string>
+    <string name="sub_announcement_traffic_left">Трафика осталось:</string>
     <string name="sub_announcement_days_left">Дней осталось:</string>
     <string name="sub_announcement_expires">Истекает:</string>
     <string name="sub_announcement_never">Никогда</string>

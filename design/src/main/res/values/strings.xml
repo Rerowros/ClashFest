@@ -139,6 +139,7 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="announcement_expand">Expand announcement</string>
     <string name="about_support">Contact support</string>
     <string name="expires_on">expires %1$s</string>
+    <string name="sub_announcement_traffic_left">Traffic left:</string>
     <string name="sub_announcement_days_left">Days left:</string>
     <string name="sub_announcement_expires">Expires:</string>
     <string name="sub_announcement_never">Never</string>
@@ -257,7 +258,6 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="rule_manual_policy">Proxy policy</string>
     <string name="rule_manual_prepend">Prepend rule</string>
     <string name="rule_manual_append">Append rule</string>
-    <string name="rule_manual_clear">Clear list</string>
     <string name="rule_manual_content_hint">e.g. google.com or 10.0.0.0/8</string>
     <string name="rule_manual_match_hint">MATCH uses only policy (leave content empty)</string>
     <string name="rule_manual_need_content">Enter rule content for this type</string>

@@ -518,7 +518,6 @@
     <string name="rule_insert_top">插入到位置 1</string>
     <string name="rule_manager_intro">在此管理当前提供商。在创建表单中添加或编辑。注意：激进的广告 geosite 列表在某些核心/设备上可能不稳定。</string>
     <string name="rule_manual_append">追加到底部</string>
-    <string name="rule_manual_clear">清空列表</string>
     <string name="rule_manual_content">规则内容</string>
     <string name="rule_manual_content_hint">例如 google.com 或 10.0.0.0/8</string>
     <string name="rule_manual_content_payload_hint">载荷（域名、IP/CIDR、端口等）</string>
