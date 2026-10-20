@@ -183,7 +183,6 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="rule_action_disable">Disable</string>
     <string name="rule_action_restore">Restore</string>
     <string name="quick_actions">Quick Actions</string>
-    <string name="home_clipboard">Clipboard</string>
     <string name="home_qr">QR-Code</string>
     <string name="home_import_sheet_title">Add subscription</string>
     <string name="home_import_sheet_summary">Choose how you want to add your subscription.</string>
