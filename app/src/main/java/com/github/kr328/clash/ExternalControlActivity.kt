@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import android.webkit.URLUtil
 import androidx.activity.result.contract.ActivityResultContracts
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.util.intent
@@ -33,6 +34,7 @@ class ExternalControlActivity : Activity(), CoroutineScope by MainScope() {
                 val uri = intent.data ?: return finish()
                 if (uri.host != "install-config" && uri.host != "installconfig") return finish()
                 val url = uri.getQueryParameter("url") ?: return finish()
+                if (!URLUtil.isNetworkUrl(url)) return finish()
 
                 launch {
                     val uuid = withProfile {
