@@ -50,6 +50,7 @@ suspend fun showAboutDialog(
             binding.aboutSupportButton.apply {
                 visibility = View.VISIBLE
                 setOnClickListener {
+                    if (!android.webkit.URLUtil.isNetworkUrl(supportUrl)) return@setOnClickListener
                     runCatching {
                         context.startActivity(
                             Intent(Intent.ACTION_VIEW, Uri.parse(supportUrl))
