@@ -150,7 +150,6 @@
     <string name="deny_selected_apps">除所选外</string>
     <string name="app_routing_counter">已选择：%1$d / %2$d</string>
     <string name="app_routing_selected">已选择</string>
-    <string name="app_routing_not_selected">未选择</string>
     <string name="no_profile_selected">没有选择配置文件</string>
     <string name="copied">已复制</string>
     <string name="google_play">Google Play</string>
