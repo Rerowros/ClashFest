@@ -619,6 +619,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
                     icon = null
                     setOnClickListener {
                         runCatching {
+                            if (!android.webkit.URLUtil.isNetworkUrl(support)) return@setOnClickListener
                             context.startActivity(
                                 Intent(Intent.ACTION_VIEW, Uri.parse(support))
                                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
