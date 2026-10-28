@@ -502,7 +502,6 @@
     <string name="deny_selected_apps_description">Выбранные приложения обходят VPN</string>
     <string name="app_routing_counter">Выбрано: %1$d / %2$d</string>
     <string name="app_routing_selected">Выбрано</string>
-    <string name="app_routing_not_selected">Не выбрано</string>
 
     <string name="no_profile_selected">Профиль не выбран</string>
     <string name="start_no_subscription_plain">Сначала добавьте подписку, потом нажмите Connect.</string>
