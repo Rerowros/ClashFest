@@ -51,6 +51,7 @@ suspend fun showAboutDialog(
                 visibility = View.VISIBLE
                 setOnClickListener {
                     runCatching {
+                        if (!android.webkit.URLUtil.isNetworkUrl(supportUrl)) return@runCatching
                         context.startActivity(
                             Intent(Intent.ACTION_VIEW, Uri.parse(supportUrl))
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
