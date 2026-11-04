@@ -1569,6 +1569,7 @@ class MainActivity : BaseActivity<MainDesign>() {
         val target = url.trim().let {
             if (it.startsWith("t.me/", ignoreCase = true)) "https://$it" else it
         }
+        if (!android.webkit.URLUtil.isNetworkUrl(target)) return
         runCatching {
             startActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse(target))

@@ -36,6 +36,7 @@ class UpdateActionReceiver : BroadcastReceiver() {
 
             ACTION_OPEN_RELEASE_PAGE -> {
                 val url = intent.getStringExtra(EXTRA_RELEASE_URL).orEmpty()
+                if (!android.webkit.URLUtil.isNetworkUrl(url)) return
                 if (url.isBlank()) return
                 runCatching {
                     app.startActivity(
