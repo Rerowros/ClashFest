@@ -257,7 +257,6 @@ Presets only change <b>where</b> files are downloaded from (CDN / host). It is s
     <string name="rule_manual_content">Rule content</string>
     <string name="rule_manual_policy">Proxy policy</string>
     <string name="rule_manual_prepend">Prepend rule</string>
-    <string name="rule_manual_append">Append rule</string>
     <string name="rule_manual_clear">Clear list</string>
     <string name="rule_manual_content_hint">e.g. google.com or 10.0.0.0/8</string>
     <string name="rule_manual_match_hint">MATCH uses only policy (leave content empty)</string>
