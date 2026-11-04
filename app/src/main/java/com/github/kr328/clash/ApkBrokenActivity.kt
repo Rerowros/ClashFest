@@ -14,7 +14,7 @@ class ApkBrokenActivity : BaseActivity<ApkBrokenDesign>() {
         while (isActive) {
             val req = design.requests.receive()
 
-            startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse(req.url)))
+            if (android.webkit.URLUtil.isNetworkUrl(req.url)) startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse(req.url)))
         }
     }
 }
