@@ -21,7 +21,7 @@ class UpdateActionReceiver : BroadcastReceiver() {
                 val tag = intent.getStringExtra(EXTRA_TAG).orEmpty()
                 val url = intent.getStringExtra(EXTRA_APK_URL).orEmpty()
                 val name = intent.getStringExtra(EXTRA_APK_NAME)
-                if (url.isBlank()) return
+                if (url.isBlank() || !android.webkit.URLUtil.isNetworkUrl(url)) return
                 runCatching {
                     GitHubReleaseUpdate.enqueueApkDownload(
                         context = app,
@@ -36,7 +36,7 @@ class UpdateActionReceiver : BroadcastReceiver() {
 
             ACTION_OPEN_RELEASE_PAGE -> {
                 val url = intent.getStringExtra(EXTRA_RELEASE_URL).orEmpty()
-                if (url.isBlank()) return
+                if (url.isBlank() || !android.webkit.URLUtil.isNetworkUrl(url)) return
                 runCatching {
                     app.startActivity(
                         Intent(Intent.ACTION_VIEW, Uri.parse(url))
